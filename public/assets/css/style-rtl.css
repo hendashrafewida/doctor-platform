@@ -1,0 +1,285 @@
+/**======================================================================
+RTL Support for Light Able Admin Template
+Fixes sidebar and layout positioning for Right-to-Left languages
+========================================================================= */
+
+/* RTL: Sidebar positioning on the right side */
+[data-pc-direction=rtl] .pc-sidebar {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: var(--pc-sidebar-border);
+}
+
+/* RTL: Header positioning */
+[data-pc-direction=rtl] .pc-header {
+  left: auto;
+  right: 0;
+  margin-left: 0;
+  margin-right: 280px;
+}
+
+/* Keep account controls at the far left of the RTL header. */
+[data-pc-direction=rtl] .pc-header .header-wrapper > .ms-auto {
+  order: -1;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+/* Keep a light sidebar light even when the page theme is dark. */
+[data-pc-theme=dark][data-pc-sidebar-theme=light] {
+  --pc-sidebar-background: #fff;
+  --pc-sidebar-color: #39465F;
+  --pc-sidebar-color-rgb: 57, 70, 95;
+  --pc-sidebar-submenu-border-color: var(--bs-gray-300);
+  --pc-sidebar-caption-color: var(--pc-heading-color);
+}
+
+[data-pc-theme=dark][data-pc-sidebar-theme=light] .pc-sidebar .pc-user-card {
+  --bs-card-bg: #fff;
+  --bs-card-color: #39465F;
+  --bs-card-border-color: var(--bs-gray-300);
+}
+
+/* RTL: Container and footer margins */
+[data-pc-direction=rtl] .pc-container,
+[data-pc-direction=rtl] .pc-footer {
+  margin-left: 0;
+  margin-right: 280px;
+}
+
+/* RTL: Sidebar hide state */
+[data-pc-direction=rtl] .pc-sidebar.pc-sidebar-hide {
+  right: 0;
+}
+
+[data-pc-direction=rtl] .pc-sidebar.pc-sidebar-hide ~ .pc-header {
+  margin-right: 0;
+}
+
+[data-pc-direction=rtl] .pc-sidebar.pc-sidebar-hide ~ .pc-container,
+[data-pc-direction=rtl] .pc-sidebar.pc-sidebar-hide ~ .pc-footer {
+  margin-right: 0;
+}
+
+/* RTL: Sidebar transitions */
+[data-pc-direction=rtl] .pc-sidebar {
+  transition: width 0.2s ease;
+}
+
+[data-pc-direction=rtl] .pc-sidebar ~ .pc-header {
+  transition: margin-right 0.2s ease, right 0.2s ease;
+}
+
+[data-pc-direction=rtl] .pc-sidebar ~ .pc-footer,
+[data-pc-direction=rtl] .pc-sidebar ~ .pc-container {
+  transition: margin-right 0.2s ease;
+}
+
+/* RTL: Sidebar submenu borders */
+[data-pc-direction=rtl] .pc-sidebar .pc-navbar > .pc-item .pc-submenu:after {
+  border-left: 1px solid var(--pc-sidebar-submenu-border-color);
+  border-right: none;
+  right: 15px;
+  left: auto;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-submenu:after {
+  border-left: 1px solid var(--pc-sidebar-submenu-border-color);
+  border-right: none;
+  right: 15px;
+  left: auto;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-submenu .pc-submenu:after {
+  border-left: 1px solid var(--pc-sidebar-submenu-border-color);
+  border-right: none;
+  right: 15px;
+  left: auto;
+}
+
+/* RTL: User card dropdown menu */
+[data-pc-direction=rtl] .pc-sidebar .card.pc-user-card .dropdown-menu ul li {
+  border-bottom: 1px solid var(--pc-sidebar-submenu-border-color);
+}
+
+[data-pc-direction=rtl] .pc-sidebar .card.pc-user-card .dropdown-menu ul li:nth-child(even):after {
+  border-left: 1px solid var(--pc-sidebar-submenu-border-color);
+  border-right: none;
+  left: auto;
+  right: 0;
+}
+
+/* RTL: Sidebar icons and text alignment */
+[data-pc-direction=rtl] .pc-sidebar .pc-link {
+  text-align: right;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .pc-micon {
+  margin-left: 0;
+  margin-right: 12px;
+  order: 2;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .pc-mtext {
+  order: 1;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .pc-arrow {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+/* RTL: Badge positioning in sidebar */
+[data-pc-direction=rtl] .pc-sidebar .pc-badge {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+/* RTL: Mobile sidebar positioning */
+@media (max-width: 1024px) {
+  [data-pc-direction=rtl] .pc-sidebar {
+    right: -280px;
+    left: auto;
+    box-shadow: none;
+    top: 0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar.mob-sidebar-active {
+    right: 0;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar.mob-sidebar-active .navbar-wrapper {
+    position: relative;
+    z-index: 5;
+    background: inherit;
+  }
+
+  [data-pc-direction=rtl] .pc-header,
+  [data-pc-direction=rtl] .pc-container,
+  [data-pc-direction=rtl] .pc-footer {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-header {
+    transition: all 0.2s ease-in-out;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-footer,
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-container {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* RTL: Tablet sidebar positioning */
+@media (max-width: 1365px) {
+  [data-pc-direction=rtl] .pc-sidebar {
+    right: -280px;
+    left: auto;
+    transition: right 0.2s ease;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-header {
+    transition: margin-right 0.2s ease;
+    right: auto;
+    left: auto;
+  }
+
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-footer,
+  [data-pc-direction=rtl] .pc-sidebar ~ .pc-container {
+    transition: margin-right 0.2s ease;
+  }
+}
+
+/* RTL: Fix for dropdown menus in sidebar */
+[data-pc-direction=rtl] .pc-sidebar .dropdown-menu {
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+/* RTL: Fix for logo and brand */
+[data-pc-direction=rtl] .pc-sidebar .m-header .b-brand {
+  text-align: right;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .m-header .b-brand .badge {
+  margin-right: 8px;
+  margin-left: 0;
+}
+
+/* RTL: Card alignment in sidebar */
+[data-pc-direction=rtl] .pc-sidebar .card {
+  text-align: right;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .card.pc-user-card .card-body {
+  text-align: right;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .card.pc-user-card .card-body .d-flex {
+  flex-direction: row-reverse;
+}
+
+[data-pc-direction=rtl] .pc-sidebar .card.nav-action-card .card-body {
+  text-align: right;
+}
+
+/* RTL: Nav action card button */
+[data-pc-direction=rtl] .pc-sidebar .card.nav-action-card .card-body .btn {
+  width: 100%;
+}
+
+/* RTL: Helper text alignment */
+[data-pc-direction=rtl] .pc-sidebar .navbar-content {
+  text-align: right;
+}
+
+/* RTL: Ensure proper scrolling direction for navbar content */
+[data-pc-direction=rtl] .pc-sidebar .navbar-content .simplebar-wrapper {
+  direction: rtl;
+}
+
+/* Keep the desktop navigation visible on the right at the tablet breakpoint. */
+@media (min-width: 1200px) {
+  [data-pc-direction=rtl] .pc-sidebar {
+    right: 0;
+    left: auto;
+  }
+
+  [data-pc-direction=rtl] .pc-header {
+    right: 0;
+    left: auto;
+    margin-right: 280px;
+    margin-left: 0;
+  }
+
+  [data-pc-direction=rtl] .pc-container,
+  [data-pc-direction=rtl] .pc-footer {
+    margin-right: 280px;
+    margin-left: 0;
+  }
+}
+
+/* RTL: Compact layout fixes */
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar {
+  right: -72px;
+  left: auto;
+}
+
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar:not(.pc-compact-submenu-active) {
+  right: 0;
+  margin-right: 72px;
+}
+
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar ~ .pc-header,
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar ~ .pc-footer,
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar ~ .pc-container {
+  margin-right: 72px;
+}
+
+[data-pc-direction=rtl][data-pc-layout=compact] .pc-sidebar.pc-compact-submenu-active {
+  right: 0;
+}

@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('specializations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+        $default = [
+            'رياضيات',
+            'علوم',
+            'لغة عربية',
+            'لغة إنجليزية',
+            'لغة فرنسية',
+            'فيزياء',
+            'كيمياء',
+            'أحياء',
+            'تاريخ',
+            'جغرافيا',
+            'فلسفة ومنطق',
+            'علم نفس واجتماع',
+            'حاسب آلي',
+            'اقتصاد وإحصاء',
+            'دراسات إسلامية',
+        ];
+
+        foreach ($default as $item) {
+            \App\Models\Specialization::query()->firstOrCreate(['name' => $item]);
+        }
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('specializations');
+    }
+};
