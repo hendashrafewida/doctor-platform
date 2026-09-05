@@ -13,10 +13,25 @@ use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = Customer::with(['organization', 'specialization'])->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->string('search')->toString();
+            $query->where(function ($builder) use ($search): void {
+                $builder->where('name', 'like', "%{$search}%")
+                    ->orWhere('mobile', 'like', "%{$search}%")
+                    ->orWhere('city', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->string('status')->toString());
+        }
+
         return view('customers.index', [
-            'customers' => Customer::with(['organization', 'specialization'])->latest()->paginate(15),
+            'customers' => $query->paginate(15)->withQueryString(),
         ]);
     }
 
