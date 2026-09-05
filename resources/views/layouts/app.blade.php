@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="pc-item">
-                    <a href="{{ url('/admin/organizations') }}" class="pc-link">
+                    <a href="{{ route('customers.index') }}" class="pc-link">
                         <span class="pc-micon"><i class="ph-duotone ph-users"></i></span>
                         <span class="pc-mtext">قائمة العملاء</span>
                     </a>
