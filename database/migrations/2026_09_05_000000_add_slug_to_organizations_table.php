@@ -37,7 +37,7 @@ return new class extends Migration
                 ->update(['slug' => $slug]);
         }
 
-        if (! $this->hasUniqueSlugIndex()) {
+        if (! Schema::hasIndex('organizations', ['slug'])) {
             Schema::table('organizations', function (Blueprint $table): void {
                 $table->unique('slug');
             });
@@ -52,19 +52,6 @@ return new class extends Migration
                 $table->dropColumn('slug');
             });
         }
-    }
-
-    private function hasUniqueSlugIndex(): bool
-    {
-        $table = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails('organizations');
-
-        foreach ($table->getIndexes() as $index) {
-            if ($index->isUnique() && in_array('slug', $index->getColumns(), true)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 };

@@ -2,6 +2,10 @@
 
 @section('title', 'الرئيسية')
 
+@push('scripts')
+    <script src="{{ asset('assets/js/pages/dashboard-default.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="page-header">
     <div class="page-block">

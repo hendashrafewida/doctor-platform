@@ -21048,24 +21048,57 @@ pre[class*=language-] > code {
 }
 .pc-header .header-wrapper {
   display: flex;
+  align-items: center;
   padding: 0 25px;
   flex-grow: 1;
+  gap: 12px;
 }
 @media (max-width: 575.98px) {
   .pc-header .header-wrapper {
     padding: 0 15px;
   }
 }
+.pc-header .pc-header-controls {
+  display: flex;
+  align-items: center;
+  order: -1;
+  margin-inline-end: auto;
+  margin-inline-start: 0;
+}
+.pc-header .pc-header-controls > ul {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pc-header .pc-header-controls .pc-h-item {
+  min-height: 40px;
+}
 .pc-header .form-search {
   position: relative;
+  display: flex;
+  align-items: center;
+  width: min(300px, 100%);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 999px;
+  background: rgba(var(--bs-body-color-rgb), 0.02);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.pc-header .form-search:focus-within {
+  border-color: rgba(var(--bs-primary-rgb), 0.45);
+  background: rgba(var(--bs-primary-rgb), 0.02);
+  box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.12);
 }
 .pc-header .form-search .form-control, .pc-header .form-search .datatable-input, .pc-header .form-search .custom-select,
 .pc-header .form-search .dataTable-selector,
 .pc-header .form-search .dataTable-input {
-  border-radius: var(--bs-border-radius);
-  padding: 0.62rem 2.6rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 3.2rem 0.7rem 2.8rem;
   width: 100%;
   max-width: 300px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pc-header-color);
 }
 @media (max-width: 1024px) {
   .pc-header .form-search .form-control, .pc-header .form-search .datatable-input, .pc-header .form-search .custom-select,
@@ -21076,20 +21109,28 @@ pre[class*=language-] > code {
 }
 .pc-header .form-search .icon-search {
   position: absolute;
-  top: 11px;
+  top: 50%;
   left: 14px;
+  transform: translateY(-50%);
   font-size: 20px;
-  opacity: 0.4;
+  line-height: 1;
+  color: var(--pc-header-color);
+  opacity: 0.7;
 }
 .pc-header .form-search .btn-search {
   position: absolute;
-  top: 8px;
+  top: 50%;
   right: 8px;
-  padding: 2px 12px;
+  transform: translateY(-50%);
+  padding: 3px 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--bs-border-radius-sm);
+  border-radius: 999px;
+  background: rgba(var(--bs-primary-rgb), 0.08);
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.16);
+  color: var(--pc-header-color);
+  line-height: 1.2;
 }
 .pc-header .pc-h-item {
   min-height: 74px;
@@ -21098,49 +21139,249 @@ pre[class*=language-] > code {
   position: relative;
 }
 .pc-header .pc-head-link {
-  margin: 0 4px;
+  margin: 0;
   position: relative;
   font-weight: 500;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   color: var(--pc-header-color);
   overflow: hidden;
+  background: rgba(var(--bs-body-color-rgb), 0.04);
+  border: 1px solid var(--bs-border-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .pc-header .pc-head-link::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 1;
-  background: var(--pc-active-background);
-  border-radius: 50%;
-  transform: scale(0);
-  transition: all 0.08s cubic-bezier(0.37, 0.24, 0.53, 0.99);
+  background: rgba(var(--bs-primary-rgb), 0.06);
+  border-radius: 12px;
+  transform: scale(0.86);
+  opacity: 0;
+  transition: all 0.2s ease;
 }
 .pc-header .pc-head-link > svg,
 .pc-header .pc-head-link > i {
   position: relative;
   z-index: 5;
   color: var(--pc-header-color);
-  transition: all 0.08s cubic-bezier(0.37, 0.24, 0.53, 0.99);
-}
-.pc-header .pc-head-link > i {
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 1;
+  transition: all 0.2s ease;
 }
 .pc-header .pc-head-link > svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 .pc-header .pc-head-link.active, .pc-header .pc-head-link:active, .pc-header .pc-head-link:focus, .pc-header .pc-head-link:hover {
   text-decoration: none;
   color: var(--pc-header-color);
+  box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.12);
+  border-color: rgba(var(--bs-primary-rgb), 0.28);
+}
+.pc-header .pc-head-link.active::before, .pc-header .pc-head-link:active::before, .pc-header .pc-head-link:focus::before, .pc-header .pc-head-link:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+.pc-header .pc-head-link.active > svg,
+.pc-header .pc-head-link.active > i, .pc-header .pc-head-link:active > svg,
+.pc-header .pc-head-link:active > i, .pc-header .pc-head-link:focus > svg,
+.pc-header .pc-head-link:focus > i, .pc-header .pc-head-link:hover > svg,
+.pc-header .pc-head-link:hover > i {
+  color: var(--pc-header-color);
+  transform: scale(1.02);
+}
+.pc-header .pc-head-link.active .hamburger .hamburger-inner, .pc-header .pc-head-link:active .hamburger .hamburger-inner, .pc-header .pc-head-link:focus .hamburger .hamburger-inner, .pc-header .pc-head-link:hover .hamburger .hamburger-inner {
+  background-color: #39465F;
+}
+.pc-header .pc-head-link.active .hamburger .hamburger-inner::after, .pc-header .pc-head-link.active .hamburger .hamburger-inner::before, .pc-header .pc-head-link:active .hamburger .hamburger-inner::after, .pc-header .pc-head-link:active .hamburger .hamburger-inner::before, .pc-header .pc-head-link:focus .hamburger .hamburger-inner::after, .pc-header .pc-head-link:focus .hamburger .hamburger-inner::before, .pc-header .pc-head-link:hover .hamburger .hamburger-inner::after, .pc-header .pc-head-link:hover .hamburger .hamburger-inner::before {
+  background-color: #39465F;
+}
+.pc-header .pc-head-link.active i.material-icons-two-tone, .pc-header .pc-head-link:active i.material-icons-two-tone, .pc-header .pc-head-link:focus i.material-icons-two-tone, .pc-header .pc-head-link:hover i.material-icons-two-tone {
+  background-color: #39465F;
+}
+.pc-header .pc-head-link .pc-h-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border-radius: 50%;
+  font-size: 9px;
+  z-index: 9;
+}
+.pc-header .pc-head-link .pc-h-badge.dots {
+  width: 9px;
+  height: 9px;
+  top: 7px;
+  right: 16px;
+  padding: 0;
+}
+.pc-header .pc-head-link .user-desc,
+.pc-header .pc-head-link .user-name {
+  display: block;
+  line-height: 1;
+}
+.pc-header .pc-head-link .user-name {
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.pc-header .pc-head-link .user-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--pc-header-color);
+}
+.pc-header .pc-h-dropdown {
+  transform: none !important;
+  top: 100% !important;
+}
+.pc-header .pc-h-dropdown .ti-circle {
+  font-size: 7px;
+  vertical-align: middle;
+}
+.pc-header .pc-h-dropdown.dropdown-menu-end {
+  right: 0 !important;
+  left: auto !important;
+}
+.pc-header .pc-level-menu {
+  position: relative;
+}
+.pc-header .pc-level-menu:hover > .dropdown-menu {
+  display: block;
+  left: 100%;
+  top: -18px !important;
+}
+.pc-header .drp-search {
+  min-width: 20rem;
+}
+.pc-header #vertical-nav-toggle {
+  margin-left: -15px;
+}
+.pc-header .user-avtar {
+  width: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--bs-primary-rgb), 0.28);
+  box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb), 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.pc-header .dropdown-qta {
+  min-width: 400px;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - 90px);
+}
+.pc-header .dropdown-qta::-webkit-scrollbar {
+  width: 4px;
+}
+.pc-header .dropdown-qta::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pc-header .dropdown-qta::-webkit-scrollbar-thumb {
+  background: #e2eaf2;
+}
+.pc-header .dropdown-qta::-webkit-scrollbar-thumb:hover {
+  background: #9cb7d2;
+}
+.pc-header .dropdown-qta .qta-links {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.pc-header .dropdown-qta .qta-links a {
+  width: 33.3333333333%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 10px;
+  border-radius: 0px;
+  background: var(--bs-dropdown-bg);
+  border: 1px solid var(--bs-body-bg);
+  margin: 0;
+  position: relative;
+}
+.pc-header .dropdown-qta .qta-links a::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  border-radius: var(--bs-border-radius);
+  opacity: 0.1;
+}
+.pc-header .dropdown-qta .qta-links a i {
+  margin: 0;
+  font-size: 26px;
+}
+.pc-header .dropdown-qta .qta-links a:hover {
+  color: var(--bs-primary);
+}
+.pc-header .dropdown-qta .qta-links a:hover::after {
+  background: var(--bs-primary);
+}
+.pc-header .header-user-profile .pc-head-link {
+  width: auto;
+  padding: 7px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.pc-header .header-user-profile .pc-head-link:focus .user-avtar, .pc-header .header-user-profile .pc-head-link:hover .user-avtar {
+  transform: scale(1.03);
+  box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.12);
+  border-color: rgba(var(--bs-primary-rgb), 0.48);
+}
+.pc-header .header-user-profile .pc-head-link:focus::before, .pc-header .header-user-profile .pc-head-link:hover::before {
+  display: none;
+}
+.pc-header .header-user-profile .pc-head-link > span > i {
+  font-size: 22px;
+  margin-right: 8px;
+}
+.pc-header .header-user-profile .pc-head-link .user-avtar {
+  width: 40px;
+  transition: all 0.2s ease;
+}
+@media (max-width: 575.98px) {
+  .pc-header .header-user-profile .pc-head-link {
+    width: 40px;
+  }
+  .pc-header .header-user-profile .pc-head-link .user-avtar {
+    margin-right: 0;
+  }
+  .pc-header .header-user-profile .pc-head-link > span,
+  .pc-header .header-user-profile .pc-head-link > span > i {
+    display: none;
+  }
+}
+.pc-header .dropdown-user-profile {
+  min-width: 352px;
+  max-width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+.pc-header .dropdown-user-profile .dropdown-header, .pc-header .dropdown-user-profile .dropdown-body {
+  background: var(--pc-header-background);
+}
+.pc-header .pct-c-btn .ti-settings {
+  transition: transform 0.3s ease;
+}
+.pc-header .pct-c-btn:hover .ti-settings,
+.pc-header .pct-c-btn:focus .ti-settings {
+  transform: rotate(45deg);
+}
+@media (max-width: 1024px) {
+  .pc-header .pc-header-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 .pc-header .pc-head-link.active > svg,
 .pc-header .pc-head-link.active > i, .pc-header .pc-head-link:active > svg,

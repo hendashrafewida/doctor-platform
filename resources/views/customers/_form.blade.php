@@ -10,6 +10,18 @@
         <div class="col-md-6"><label class="form-label">العنوان</label><input name="address" class="form-control" value="{{ old('address', $customer?->address) }}" required></div>
         <div class="col-md-6"><label class="form-label">التخصص</label><select name="specialization_id" class="form-select" required>@foreach ($specializations as $specialization)<option value="{{ $specialization->id }}" @selected(old('specialization_id', $customer?->specialization_id) == $specialization->id)>{{ $specialization->name }}</option>@endforeach</select></div>
         <div class="col-md-6"><label class="form-label">الحالة</label><select name="status" class="form-select"><option value="active" @selected(old('status', $customer?->status ?? 'active') === 'active')>نشط</option><option value="suspended" @selected(old('status', $customer?->status) === 'suspended')>معلق</option></select></div>
+
+        @if ($formMethod === 'PUT')
+            <div class="col-md-6">
+                <label class="form-label">تاريخ بداية الاشتراك</label>
+                <input type="date" name="subscription_start_date" class="form-control" value="{{ old('subscription_start_date', $customer?->subscription_start_date?->format('Y-m-d')) }}">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">تاريخ نهاية الاشتراك</label>
+                <input type="date" name="subscription_end_date" class="form-control" value="{{ old('subscription_end_date', $customer?->subscription_end_date?->format('Y-m-d')) }}">
+            </div>
+        @endif
     </div>
     <div class="mt-3"><button class="btn btn-primary" type="submit">حفظ</button> <a class="btn btn-light" href="{{ route('customers.index') }}">إلغاء</a></div>
 </form>

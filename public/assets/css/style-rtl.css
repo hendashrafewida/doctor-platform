@@ -11,19 +11,19 @@ Fixes sidebar and layout positioning for Right-to-Left languages
   border-left: var(--pc-sidebar-border);
 }
 
-/* RTL: Header positioning */
+/* RTL: Header positioning for the right sidebar */
 [data-pc-direction=rtl] .pc-header {
-  left: auto;
-  right: 0;
+  left: 0;
+  right: 280px;
   margin-left: 0;
-  margin-right: 280px;
+  margin-right: 0;
 }
 
-/* Keep account controls at the far left of the RTL header. */
-[data-pc-direction=rtl] .pc-header .header-wrapper > .ms-auto {
+/* Keep the header control cluster at the start side in RTL too. */
+[data-pc-direction=rtl] .pc-header .pc-header-controls {
   order: -1;
-  margin-left: 0 !important;
-  margin-right: auto !important;
+  margin-inline-end: auto;
+  margin-inline-start: 0;
 }
 
 /* Keep a light sidebar light even when the page theme is dark. */
@@ -41,7 +41,7 @@ Fixes sidebar and layout positioning for Right-to-Left languages
   --bs-card-border-color: var(--bs-gray-300);
 }
 
-/* RTL: Container and footer margins */
+/* RTL: Keep the content offset only on the sidebar side */
 [data-pc-direction=rtl] .pc-container,
 [data-pc-direction=rtl] .pc-footer {
   margin-left: 0;
@@ -242,24 +242,24 @@ Fixes sidebar and layout positioning for Right-to-Left languages
   direction: rtl;
 }
 
-/* Keep the desktop navigation visible on the right at the tablet breakpoint. */
+/* Keep the desktop navigation on the right at the desktop breakpoint. */
 @media (min-width: 1200px) {
   [data-pc-direction=rtl] .pc-sidebar {
-    right: 0;
     left: auto;
+    right: 0;
   }
 
   [data-pc-direction=rtl] .pc-header {
-    right: 0;
-    left: auto;
-    margin-right: 280px;
+    left: 0;
+    right: 280px;
     margin-left: 0;
+    margin-right: 0;
   }
 
   [data-pc-direction=rtl] .pc-container,
   [data-pc-direction=rtl] .pc-footer {
-    margin-right: 280px;
     margin-left: 0;
+    margin-right: 280px;
   }
 }
 

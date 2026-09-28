@@ -329,23 +329,24 @@ for (var t = 0; t < tc.length; t++) {
 
 var rtl_flag = false;
 var dark_flag = false;
+var default_theme_media = null;
+var default_theme_listener = null;
+
+function remove_default_theme_listener() {
+  if (default_theme_media && default_theme_listener) {
+    default_theme_media.removeEventListener('change', default_theme_listener);
+  }
+  default_theme_listener = null;
+  default_theme_media = null;
+}
 
 // ----------    new setup start   ------------
+// The legacy Light Able theme auto-init is intentionally disabled.
+// The application now reads theme settings from the server-rendered auth user state
+// and stores a mirror only in localStorage. We keep the manual functions available
+// for customizer interactions, but we do not auto-read persisted values after load.
 function layout_change_default() {
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    dark_layout = 'dark';
-  } else {
-    dark_layout = 'light';
-  }
-  layout_change(dark_layout);
-  var btn_control = document.querySelector('.theme-layout .btn[data-value="default"]');
-  if (btn_control) {
-    btn_control.classList.add('active');
-  }
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-    dark_layout = event.matches ? 'dark' : 'light';
-    layout_change(dark_layout);
-  });
+  return;
 }
 
 // dark switch mode
@@ -383,6 +384,48 @@ document.addEventListener('DOMContentLoaded', function () {
     layout_reset.addEventListener('click', function (e) {
       location.reload();
     });
+  }
+});
+
+// The legacy auto-init is disabled so it does not override server-rendered theme values.
+window.addEventListener('load', function () {
+  var body = document.body;
+  if (!body) {
+    return;
+  }
+
+  var serverTheme = body.getAttribute('data-pc-theme');
+  var serverPreset = body.getAttribute('data-pc-preset');
+  var serverSidebar = body.getAttribute('data-pc-sidebar-theme');
+  var serverCaption = body.getAttribute('data-pc-sidebar-caption');
+
+  if (serverTheme) {
+    body.setAttribute('data-pc-theme', serverTheme);
+    document.documentElement.setAttribute('data-pc-theme', serverTheme);
+    document.documentElement.setAttribute('data-bs-theme', serverTheme);
+  }
+
+  if (serverPreset) {
+    body.setAttribute('data-pc-preset', serverPreset);
+    document.documentElement.setAttribute('data-pc-preset', serverPreset);
+  }
+
+  if (serverSidebar) {
+    body.setAttribute('data-pc-sidebar-theme', serverSidebar);
+    document.documentElement.setAttribute('data-pc-sidebar-theme', serverSidebar);
+  }
+
+  if (serverCaption) {
+    body.setAttribute('data-pc-sidebar-caption', serverCaption);
+    document.documentElement.setAttribute('data-pc-sidebar-caption', serverCaption);
+  }
+
+  if (serverTheme === 'dark') {
+    document.documentElement.style.colorScheme = 'dark';
+    body.style.colorScheme = 'dark';
+  } else {
+    document.documentElement.style.colorScheme = 'light';
+    body.style.colorScheme = 'light';
   }
 });
 

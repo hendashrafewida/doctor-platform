@@ -49,6 +49,9 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
+        "safe-migrate": [
+            "@php artisan db:safe-migrate"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",

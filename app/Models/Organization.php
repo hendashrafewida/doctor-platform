@@ -20,6 +20,7 @@ class Organization extends Model
         'theme_mode',
         'sidebar_theme',
         'accent_color',
+        'sidebar_caption',
     ];
 
     protected $hidden = [
