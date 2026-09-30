@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class OrganizationEmployee extends Authenticatable implements FilamentUser
+class OrganizationEmployee extends Authenticatable
 {
     protected $fillable = [
         'organization_id',
@@ -33,13 +31,5 @@ class OrganizationEmployee extends Authenticatable implements FilamentUser
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
-    }
-
-    /**
-     * Determine if the user can access the given panel.
-     */
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $panel->getId() === 'organization';
     }
 }
