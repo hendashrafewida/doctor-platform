@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrganizationAccentColorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +54,7 @@ Route::middleware('auth:web')->group(function () {
 
 Route::middleware('auth:web')->group(function (): void {
     Route::get('/customers/export', [CustomerController::class, 'export'])->name('customers.export');
+    Route::get('/customers/export-phones', [CustomerController::class, 'exportPhones'])->name('customers.export.phones');
     Route::resource('customers', CustomerController::class)->except(['show']);
 });
 
@@ -65,4 +66,3 @@ Route::middleware('auth:web,organization')->match(['post', 'put'], '/settings/th
 
 Route::middleware('auth:web,organization')->post('/settings/theme/apply-all', [OrganizationAccentColorController::class, 'applyAll'])
     ->name('settings.theme.apply-all');
-

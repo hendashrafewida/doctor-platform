@@ -73,6 +73,18 @@ class Customer extends Model
         return $base->copy()->addMonth()->toDateString();
     }
 
+    public function getRemainingDaysAttribute(): ?int
+    {
+        if ($this->subscription_end_date === null) {
+            return null;
+        }
+
+        $today = Carbon::now()->startOfDay();
+        $endDate = Carbon::parse($this->subscription_end_date)->startOfDay();
+
+        return $today->diffInDays($endDate, false);
+    }
+
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);

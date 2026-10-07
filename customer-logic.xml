@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\xampp\htdocs\doctor\phpunit.xml" tests="1" assertions="18" errors="0" failures="1" skipped="0" time="0.488370">
+    <testsuite name="Feature" tests="1" assertions="18" errors="0" failures="1" skipped="0" time="0.488370">
+      <testsuite name="Tests\Feature\CustomerSubscriptionAccessorTest" file="C:\xampp\htdocs\doctor\tests\Feature\CustomerSubscriptionAccessorTest.php" tests="1" assertions="18" errors="0" failures="1" skipped="0" time="0.488370">
+        <testcase name="test_customer_remaining_subscription_values_match_the_full_day_rules" file="C:\xampp\htdocs\doctor\tests\Feature\CustomerSubscriptionAccessorTest.php" line="31" class="Tests\Feature\CustomerSubscriptionAccessorTest" classname="Tests.Feature.CustomerSubscriptionAccessorTest" assertions="18" time="0.488370">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\CustomerSubscriptionAccessorTest::test_customer_remaining_subscription_values_match_the_full_day_rules&#13;
+Failed asserting that 30 is null.
+&#13;
+C:\xampp\htdocs\doctor\tests\Feature\CustomerSubscriptionAccessorTest.php:92</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerPhonesExport;
+use App\Exports\CustomersExport;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Specialization;
@@ -9,13 +11,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
     private const PER_PAGE = 15;
-    private const EXPORT_HEADERS = ['ID', 'Name', 'Organization', 'City', 'Address', 'Mobile', 'Specialization', 'Status'];
 
     public function index(Request $request): View
     {
@@ -60,23 +61,14 @@ class CustomerController extends Controller
         return $this->redirectToCustomersIndex('تم حذف العميل بنجاح.');
     }
 
-    public function export(): Response
+    public function export(): mixed
     {
-        $handle = fopen('php://temp', 'r+');
-        fputcsv($handle, self::EXPORT_HEADERS);
+        return Excel::download(new CustomersExport, 'customers.xlsx');
+    }
 
-        foreach ($this->customerExportQuery()->get() as $customer) {
-            fputcsv($handle, $this->exportRow($customer));
-        }
-
-        rewind($handle);
-        $csv = stream_get_contents($handle);
-        fclose($handle);
-
-        return response($csv, 200, [
-            'Content-Type' => 'text/csv; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="customers.csv"',
-        ]);
+    public function exportPhones(): mixed
+    {
+        return Excel::download(new CustomerPhonesExport, 'customers-phones_' . date('Y-m-d h:i A') . '.xlsx');
     }
 
     private function filteredCustomerQuery(Request $request): Builder
@@ -84,11 +76,10 @@ class CustomerController extends Controller
         $query = $this->baseCustomerQuery();
 
         if ($request->filled('search')) {
-            $search = $request->string('search')->toString();
+            $search = strtolower($request->string('search')->toString());
             $query->where(function ($builder) use ($search): void {
-                $builder->where('name', 'like', "%{$search}%")
-                    ->orWhere('mobile', 'like', "%{$search}%")
-                    ->orWhere('city', 'like', "%{$search}%");
+                $builder->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(mobile) LIKE ?', ["%{$search}%"]);
             });
         }
 
@@ -177,7 +168,7 @@ class CustomerController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'string', 'max:255', 'unique:customers,mobile,' . $customerId],
+            'mobile' => ['required', 'string', 'max:255', 'unique:customers,mobile,'.$customerId],
             'specialization_id' => ['required', 'exists:specializations,id'],
             'status' => ['required', 'in:active,suspended'],
             'subscription_start_date' => ['nullable', 'date'],
@@ -187,9 +178,9 @@ class CustomerController extends Controller
 
     private function resolveDateInput(Request $request, string $field): ?string
     {
-        $year = $request->input($field . '_year');
-        $month = $request->input($field . '_month');
-        $day = $request->input($field . '_day');
+        $year = $request->input($field.'_year');
+        $month = $request->input($field.'_month');
+        $day = $request->input($field.'_day');
 
         if ($year === null && $month === null && $day === null) {
             return $request->filled($field) ? $request->input($field) : null;
