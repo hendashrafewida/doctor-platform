@@ -22,25 +22,38 @@
 
   <style>
     * { font-family: 'Cairo', 'Public Sans', sans-serif; }
+    .auth-main.v2 .auth-wrapper {
+      direction: ltr;
+    }
     .auth-sidecontent {
-      background: linear-gradient(135deg, rgba(8, 56, 107, 0.92), rgba(13, 92, 184, 0.68));
+      background: transparent;
       position: relative;
       overflow: hidden;
     }
     .auth-sidecontent::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.28), rgba(255,255,255,0));
+      display: none;
     }
     .auth-sidefooter {
       position: relative;
       z-index: 1;
       height: 100%;
+      width: 100%;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 2.5rem;
+      padding: 30px;
+    }
+    .auth-sidefooter .img-brand {
+      width: 90px;
+      max-width: 90px;
+      height: auto;
+    }
+    .auth-sidefooter .row {
+      font-size: 0.75rem;
+    }
+    .auth-main.v2 .auth-form .card {
+      max-width: 360px;
     }
     .auth-sidecontent .text-white-50,
     .auth-sidecontent .text-white-50:hover {
