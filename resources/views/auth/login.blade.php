@@ -24,6 +24,25 @@
     * { font-family: 'Cairo', 'Public Sans', sans-serif; }
     .auth-main.v2 .auth-wrapper {
       direction: ltr;
+      justify-content: center;
+      align-items: center;
+      position: static;
+      z-index: 5;
+    }
+    .auth-main.v2 {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .auth-main.v2 .auth-sidecontent {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: 220px;
     }
     .auth-sidecontent {
       background: transparent;
@@ -53,7 +72,15 @@
       font-size: 0.75rem;
     }
     .auth-main.v2 .auth-form .card {
-      max-width: 360px;
+      width: 100%;
+      max-width: 420px;
+      min-height: 0;
+      margin: 0;
+    }
+    .auth-main.v2 .auth-form { width: 100%; }
+    .auth-main.v2 .auth-form h4,
+    .auth-main.v2 .auth-form .card-body > p {
+      text-align: center;
     }
     .auth-sidecontent .text-white-50,
     .auth-sidecontent .text-white-50:hover {
@@ -92,7 +119,7 @@
       </div>
 
       <div class="auth-form">
-        <div class="card my-5 mx-3">
+        <div class="card">
           <div class="card-body">
             <h4 class="f-w-500 mb-1">Login with your email</h4>
             <p class="mb-3">Don't have an Account? <a href="#" class="link-primary ms-1">Create Account</a></p>
